@@ -1,8 +1,12 @@
 const {Router} = require('express');
 const router = Router();
 
-const {getUser} = require('../controllers/index.controller');
+const {getUserChofer,createChofer,createTrabajador,getUserTrabajador} = require('../controllers/index.controller');
 
-router.get('/users',getUser)
+router.get('/chofer',getUserChofer)
+router.get('/trabajador',getUserTrabajador)
+
+router.post('/chofer',createChofer)
+router.post('/trabajador',createTrabajador)
 
 module.exports = router;
