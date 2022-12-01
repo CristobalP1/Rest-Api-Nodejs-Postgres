@@ -25,6 +25,12 @@ const createChofer = async(req,res) => {
     const {nombre,apellido} = req.body;
     const response = await pool.query('insert into chofer(nombre,apellido) values($1, $2)',[nombre,apellido]);
     console.log(response);
+    res.json({
+        message:'User Added Succesfully',
+        body:{
+            user : {nombre,apellido}
+        }
+    })
     res.send('user create');
 }
 
@@ -35,10 +41,25 @@ const createTrabajador = async(req,res) => {
     res.send('user create');
 }
 
+const getUserIdTrabajador = async(req,res) => {
+    const id = req.params.id;
+    const response = await pool.query('Select * from trabajador where idTrabajador = $1',[id])
+    res.json(response.rows)
+}
+
+const deleteUserTrabajador = async(req,res) => {
+    const id = req.params.id;
+    const response = await pool.query('delete from trabajador where idTrabajador = $1',[id])
+    console.log(response);
+    res.json(`User ${id} delete successfully`)
+}
+
 
 module.exports = {
     getUserChofer,
     createChofer,
     createTrabajador,
-    getUserTrabajador
+    getUserTrabajador,
+    getUserIdTrabajador,
+    deleteUserTrabajador
 }
