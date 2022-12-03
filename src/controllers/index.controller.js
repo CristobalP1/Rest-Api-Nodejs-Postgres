@@ -54,6 +54,14 @@ const deleteUserTrabajador = async(req,res) => {
     res.json(`User ${id} delete successfully`)
 }
 
+const updateUserTrabajador = async(req,res) => {
+    const id = req.params.id;
+    const {nombre,apellido,edad} = req.body;
+    const response = await pool.query('update trabajador set nombre = $1 ,apellido = $2, edad = $3 where idTrabajador = $4',[nombre,apellido,edad,id])
+    console.log(response);
+    res.send(`USER ${id} UPDATE`)
+}
+
 
 module.exports = {
     getUserChofer,
@@ -61,5 +69,6 @@ module.exports = {
     createTrabajador,
     getUserTrabajador,
     getUserIdTrabajador,
-    deleteUserTrabajador
+    deleteUserTrabajador,
+    updateUserTrabajador
 }
